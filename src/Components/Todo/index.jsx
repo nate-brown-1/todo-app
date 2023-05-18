@@ -1,16 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../hooks/form';
+import { SettingsContext } from '../../context/settings';
+import { Pagination } from '@mantine/core';
 
 import { v4 as uuid } from 'uuid';
+import { waitForElementToBeRemoved } from '@testing-library/react';
 
 const Todo = () => {
 
+  const settings = useContext(SettingsContext);
   const [defaultValues] = useState({
     difficulty: 4,
   });
   const [list, setList] = useState([]);
+  const [currentPosition, setCurrentPosition] = useState(0);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+
+  const paginate = (items, page, itemsPerPage) => {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage
+    return items.slice(start, end);
+  }
+
+  // const increasePagination = () => {
+  //   setCurrentPosition(currentPosition + settings.itemsToDisplay);
+  // }
+
+  const calculateTotal = () => {
+    return Math.ceil(list.length / settings.itemsToDisplay);
+  }
 
   function addItem(item) {
     item.id = uuid();
@@ -25,16 +44,13 @@ const Todo = () => {
   }
 
   function toggleComplete(id) {
-
     const items = list.map( item => {
       if ( item.id === id ) {
         item.complete = ! item.complete;
       }
       return item;
     });
-
     setList(items);
-
   }
 
   useEffect(() => {
@@ -75,8 +91,8 @@ const Todo = () => {
           <button type="submit">Add Item</button>
         </label>
       </form>
-
-      {list.map(item => (
+    
+      {paginate(list, currentPosition, settings.itemsToDisplay).map(item => (
         <div key={item.id}>
           <p>{item.text}</p>
           <p><small>Assigned to: {item.assignee}</small></p>
@@ -85,7 +101,14 @@ const Todo = () => {
           <hr />
         </div>
       ))}
-
+      
+      <Pagination
+        onChange={(page) => setCurrentPosition(page)}
+        total={calculateTotal()}
+        color="indigo"
+        size="lg"
+        radius="md"
+        initialPage={currentPosition} />
     </>
   );
 };
