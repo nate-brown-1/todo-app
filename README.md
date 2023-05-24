@@ -17,12 +17,6 @@ Incorporates React Context API for state management.
 Whiteboard to follow
 
 ## Feature Tasks
-
-Feature tasks 
-
-
-
-
 ------------
 Lab 32 requirements below
 

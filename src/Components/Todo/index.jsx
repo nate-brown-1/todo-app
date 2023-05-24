@@ -4,7 +4,6 @@ import { SettingsContext } from '../../context/settings';
 import { Pagination } from '@mantine/core';
 
 import { v4 as uuid } from 'uuid';
-import { waitForElementToBeRemoved } from '@testing-library/react';
 
 const Todo = () => {
 
@@ -22,10 +21,6 @@ const Todo = () => {
     const end = start + itemsPerPage
     return items.slice(start, end);
   }
-
-  // const increasePagination = () => {
-  //   setCurrentPosition(currentPosition + settings.itemsToDisplay);
-  // }
 
   const calculateTotal = () => {
     return Math.ceil(list.length / settings.itemsToDisplay);
