@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../hooks/form';
-import { SettingsContext } from '../../context/settings';
+import { SettingsContext } from '../../Context/Settings';
+
+import List from '../List';
+
 import { Pagination } from '@mantine/core';
 
 import { v4 as uuid } from 'uuid';
@@ -11,8 +14,8 @@ const Todo = () => {
   const [defaultValues] = useState({
     difficulty: 4,
   });
-  const [list, setList] = useState([]);
-  const [currentPosition, setCurrentPosition] = useState(0);
+  // const [list, setList] = useState([]);
+  // const [currentPosition, setCurrentPosition] = useState(0);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
@@ -87,7 +90,9 @@ const Todo = () => {
         </label>
       </form>
     
-      {paginate(list, currentPosition, settings.itemsToDisplay).map(item => (
+      <List />
+
+      {/* {paginate(list, currentPosition, settings.itemsToDisplay).map(item => (
         <div key={item.id}>
           <p>{item.text}</p>
           <p><small>Assigned to: {item.assignee}</small></p>
@@ -103,7 +108,7 @@ const Todo = () => {
         color="indigo"
         size="lg"
         radius="md"
-        initialPage={currentPosition} />
+      initialPage={currentPosition} />*/}
     </>
   );
 };
