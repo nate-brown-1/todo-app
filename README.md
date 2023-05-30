@@ -12,6 +12,10 @@ Incorporates React Context API for state management.
 0.2.0, 16 May 2023 - Implemented React Context to manage settings, added pagination, styled app with Mantine  
 0.3.0, 29 May 2023 - Todo list works, hides completed tasks, auth functionality doesn't work and is commented out, settings page doesn't work  
 
+## Deployed Site (Netlify)
+
+[
+
 ## Whiteboard
 
 ![Lab 31 Whiteboard](./lab31-whiteboard.png)
