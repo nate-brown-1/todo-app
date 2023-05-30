@@ -8,9 +8,9 @@ Incorporates React Context API for state management.
 
 ## Version History
 
-0.1.0, 15 May 2023 - Built app from previously developed starter code and obtained proof of life
-0.2.0, 16 May 2023 - Implemented React Context to manage settings, added pagination, styled app with Mantine
-0.3.0, 29 May 2023 - Todo list works, hides completed tasks, auth functionality doesn't work and is commented out, settings page doesn't work
+0.1.0, 15 May 2023 - Built app from previously developed starter code and obtained proof of life  
+0.2.0, 16 May 2023 - Implemented React Context to manage settings, added pagination, styled app with Mantine  
+0.3.0, 29 May 2023 - Todo list works, hides completed tasks, auth functionality doesn't work and is commented out, settings page doesn't work  
 
 ## Whiteboard
 
