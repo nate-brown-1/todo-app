@@ -1,9 +1,11 @@
 // header
 
+require('./Header.css');
+
 function Header() {
   return (
-    <div>
-      <p>Header</p>
+    <div className="headerClass">
+      <p>Home</p>
       </div>
   )
 }

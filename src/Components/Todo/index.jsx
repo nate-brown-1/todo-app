@@ -1,33 +1,32 @@
-import React, { useEffect, useState, useContext } from 'react';
-import useForm from '../../hooks/form';
-import { SettingsContext } from '../../Context/Settings';
+import React, { useEffect, useState } from 'react';
+import useForm from '../../Contexts/hooks/form';
 
+import AuthProvider from '../../Contexts/Auth';
+import Login from '../../Contexts/Auth/Login';
+
+import Header from '../Header';
+import Footer from '../Footer';
 import List from '../List';
 
-import { Pagination } from '@mantine/core';
-
 import { v4 as uuid } from 'uuid';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SettingsPage from '../Settings';
+import ItemForm from '../Form';
+import { Group, Container, Title } from '@mantine/core';
 
 const Todo = () => {
 
-  const settings = useContext(SettingsContext);
-  const [defaultValues] = useState({
-    difficulty: 4,
-  });
-  // const [list, setList] = useState([]);
-  // const [currentPosition, setCurrentPosition] = useState(0);
+  // keep
+  const [defaultValues] = useState({ difficulty: 4 });
+
+  // keep
+  const [list, setList] = useState([]);
+
+  // keep
   const [incomplete, setIncomplete] = useState([]);
+
+  // keep
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
-
-  const paginate = (items, page, itemsPerPage) => {
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage
-    return items.slice(start, end);
-  }
-
-  const calculateTotal = () => {
-    return Math.ceil(list.length / settings.itemsToDisplay);
-  }
 
   function addItem(item) {
     item.id = uuid();
@@ -37,14 +36,14 @@ const Todo = () => {
   }
 
   function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+    const items = list.filter(item => item.id !== id);
     setList(items);
   }
 
   function toggleComplete(id) {
-    const items = list.map( item => {
-      if ( item.id === id ) {
-        item.complete = ! item.complete;
+    const items = list.map(item => {
+      if (item.id === id) {
+        item.complete = !item.complete;
       }
       return item;
     });
@@ -58,57 +57,35 @@ const Todo = () => {
     // linter will want 'incomplete' added to dependency array unnecessarily. 
     // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [list]);
 
   return (
     <>
-      <header data-testid="todo-header">
-        <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
-      </header>
+      <AuthProvider>
+      <Header data-testid="todo-header">
+        <Login />
+      </Header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/" element={
+            <>
+              <Container style={{ backgroundColor: "#333", color: "#eee", padding: "2rem" }}>
+                <Title order={2} align="left">
+                  To Do List: {incomplete} items pending
+                </Title>
+              </Container>
+              <Group position="apart" grow style={{ margin: "1rem 5rem" }}>
+                <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
+                <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+              </Group>
+            </>
+          } />
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+      </AuthProvider>
 
-      <form onSubmit={handleSubmit}>
-
-        <h2>Add To Do Item</h2>
-
-        <label>
-          <span>To Do Item</span>
-          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-        </label>
-
-        <label>
-          <span>Assigned To</span>
-          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-        </label>
-
-        <label>
-          <span>Difficulty</span>
-          <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
-    
-      <List />
-
-      {/* {paginate(list, currentPosition, settings.itemsToDisplay).map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
-      
-      <Pagination
-        onChange={(page) => setCurrentPosition(page)}
-        total={calculateTotal()}
-        color="indigo"
-        size="lg"
-        radius="md"
-      initialPage={currentPosition} />*/}
     </>
   );
 };
