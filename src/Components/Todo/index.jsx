@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../Contexts/hooks/form';
 
-import AuthProvider from '../../Contexts/Auth';
-import Login from '../../Contexts/Auth/Login';
+// import AuthProvider from '../../Contexts/Auth';
+// import Login from '../../Contexts/Auth/Login';
 
 import Header from '../Header';
 import Footer from '../Footer';
@@ -61,9 +61,9 @@ const Todo = () => {
 
   return (
     <>
-      <AuthProvider>
+      {/* <AuthProvider> */}
       <Header data-testid="todo-header">
-        <Login />
+        {/* <Login /> */}
       </Header>
       <BrowserRouter>
         <Routes>
@@ -84,7 +84,7 @@ const Todo = () => {
         </Routes>
       </BrowserRouter>
       <Footer />
-      </AuthProvider>
+      {/* </AuthProvider> */}
 
     </>
   );
