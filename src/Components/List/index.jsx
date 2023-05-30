@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../..';
-import Auth from '../Contexts/Auth/Auth';
+// import { AuthContext } from '../..';
+// import Auth from '../Contexts/Auth/Auth';
 import { SettingsContext } from '../../Contexts/Settings';
 import { Pagination, Container } from '@mantine/core';
 import Task from '../Task';
@@ -8,11 +8,11 @@ import Task from '../Task';
 function List(props) {
 
   // reaching up into our cloud
-  let { isLoggedIn, can, user } = useContext(AuthContext);
+  // let { isLoggedIn, can, user } = useContext(AuthContext);
 
-  console.log(can('read'));
-  console.log('Are we logged in??', isLoggedIn);
-  console.log('Who is the current user', user);
+  // console.log(can('read'));
+  // console.log('Are we logged in??', isLoggedIn);
+  // console.log('Who is the current user', user);
 
   const settings = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1);
@@ -58,14 +58,14 @@ function List(props) {
   }, [props.data, settings.hideCompleted, settings.itemsPerPage])
 
   return (
-    <Auth capability='read'>
+    // <Auth capability='read'>
     <Container style={{minWidth: "65%"}}>
       {taskList.map(item => {
         return <Task item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
       })}
       <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
       </Container>
-    </Auth>
+    // </Auth>
   )
 
 }
