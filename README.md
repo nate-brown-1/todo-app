@@ -14,7 +14,7 @@ Incorporates React Context API for state management.
 
 ## Deployed Site (Netlify)
 
-[
+[https://main--lambent-cupcake-4ea6f0.netlify.app/](https://main--lambent-cupcake-4ea6f0.netlify.app/)
 
 ## Whiteboard
 
