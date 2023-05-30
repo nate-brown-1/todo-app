@@ -1,10 +1,12 @@
 // footer
 
+require('./Footer.css');
+
 function Footer() {
   return (
-    <div>
-      <p>Footer</p>
-      </div>
+    <div className="footerClass">
+      <p>Copyright 2023 Nate Brown</p>
+    </div>
   )
 }
 
